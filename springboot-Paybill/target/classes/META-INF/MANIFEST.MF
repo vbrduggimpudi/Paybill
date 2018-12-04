@@ -1,0 +1,10 @@
+Manifest-Version: 1.0
+Built-By: vduggimpudi
+Build-Jdk: 11
+Implementation-Title: Paybill
+Implementation-Version: 0.0.1-SNAPSHOT
+Implementation-Vendor-Id: com.sample
+Implementation-URL: https://projects.spring.io/spring-boot/#/spring-boot
+ -starter-parent/springboot-Paybill
+Created-By: Maven Integration for Eclipse
+
