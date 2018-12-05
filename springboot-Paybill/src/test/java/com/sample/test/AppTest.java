@@ -1,10 +1,8 @@
 package com.sample.test;
 
-import org.springframework.beans.factory.annotation.Autowired;
-
 import com.sample.model.BillModel;
-import com.sample.service.SampleService;
 import com.sample.service.SampleServiceImpl;
+import com.sample.service.SampleUtil;
 
 import junit.framework.Test;
 import junit.framework.TestCase;
@@ -14,7 +12,8 @@ public class AppTest
 extends TestCase
 {
 	SampleServiceImpl service = new SampleServiceImpl();
-	double billNumber = 2121212;
+	SampleUtil sampleUtil = new SampleUtil();
+	Double billNumber = (double) 2121212;
 	int billAmount = 100;
 /**
  * Create the test case
@@ -42,34 +41,39 @@ public void testApp()
     assertTrue( true );
 }
 
-public void testBillPaidFail() throws Exception{
-	BillModel bm = new BillModel();
-	bm.setBillNum(billNumber);
+public void testBillPaidSuccess() throws Exception{
+	BillModel bm = sampleUtil.getSampleBillData();
 	try{
 		service.billPaid(bm);
 	}catch(Exception e) {
-		assertNull("bill amount cannot be null", bm.getAmount());
-	}
-}
-public void testBillPaidFailByNumber() throws Exception{
-	BillModel bm = new BillModel();
-	bm.setAmount(billAmount);
-	try{
-		service.billPaid(bm);
-	}catch(Exception e) {
-		assertNull("bill amount cannot be null", bm.getBillNum());
+		assertNotNull("The bill paid successfully", bm);
 	}
 }
 
-public void testBillPaidSuccess() {
+public void testGenerateBillFail() throws Exception{
 	BillModel bm = new BillModel();
-	bm.setAmount(billAmount);
-	bm.setBillNum(billNumber);
 	try{
-		String status = service.billPaid(bm);
-		assertTrue("status returned", status.equalsIgnoreCase("success"));
+		service.billPaid(bm);
 	}catch(Exception e) {
-		e.printStackTrace();
+		assertNull("The bill details must contain customer Name, Mobile and list of products purchased", bm);
+	}
+}
+
+public void testGenerateBillSuccess() throws Exception{
+	BillModel bm = sampleUtil.getSampleBillData();
+	try{
+		service.generateBill(bm);
+	}catch(Exception e) {
+		assertNotNull("The bill generated successfully", bm);
+	}
+}
+
+public void testGetBill() {
+	try{
+		BillModel bm = service.getBill();
+		assertTrue("status returned", !bm.getInvoice().isEmpty());
+	}catch(Exception e) {
+		assertTrue("The bill generated successfully", true);
 	}
 }
 

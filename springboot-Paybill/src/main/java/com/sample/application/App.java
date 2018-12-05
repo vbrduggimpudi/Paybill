@@ -7,13 +7,10 @@ import org.springframework.boot.web.servlet.support.SpringBootServletInitializer
 
 @EnableAutoConfiguration
 @SpringBootApplication(scanBasePackages = {"com.sample"})
-public class App extends SpringBootServletInitializer {
-  public static void main(String[] args) {
+public class App 
+{
+  public static void main(String[] args) 
+  {
       SpringApplication.run(App.class, args);
-  }
-
-  @Override
-  protected SpringApplicationBuilder configure(SpringApplicationBuilder builder) {
-      return builder.sources(App.class);
   }
 }
