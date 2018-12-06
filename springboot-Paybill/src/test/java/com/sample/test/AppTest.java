@@ -13,8 +13,6 @@ extends TestCase
 {
 	SampleServiceImpl service = new SampleServiceImpl();
 	SampleUtil sampleUtil = new SampleUtil();
-	Double billNumber = (double) 2121212;
-	int billAmount = 100;
 /**
  * Create the test case
  *
@@ -23,22 +21,6 @@ extends TestCase
 public AppTest( String testName )
 {
     super( testName );
-}
-
-/**
- * @return the suite of tests being tested
- */
-public static Test suite()
-{
-    return new TestSuite( AppTest.class );
-}
-
-/**
- * Rigourous Test :-)
- */
-public void testApp()
-{
-    assertTrue( true );
 }
 
 public void testBillPaidSuccess() throws Exception{
@@ -50,7 +32,7 @@ public void testBillPaidSuccess() throws Exception{
 	}
 }
 
-public void testGenerateBillFail() throws Exception{
+public void testBillPaidFail() throws Exception{
 	BillModel bm = new BillModel();
 	try{
 		service.billPaid(bm);
@@ -61,6 +43,15 @@ public void testGenerateBillFail() throws Exception{
 
 public void testGenerateBillSuccess() throws Exception{
 	BillModel bm = sampleUtil.getSampleBillData();
+	try{
+		service.generateBill(bm);
+	}catch(Exception e) {
+		assertNotNull("The bill generated successfully", bm);
+	}
+}
+
+public void testGenerateBillFail() throws Exception{
+	BillModel bm = new BillModel();
 	try{
 		service.generateBill(bm);
 	}catch(Exception e) {
